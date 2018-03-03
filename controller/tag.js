@@ -1,8 +1,8 @@
-const model = require("../models/Admin");
+const model = require("../models/Tag");
 
-let Admin = model.Admin
-let getAdminInfo = async (ctx, next) => {
-    const RowDataPacket = await Admin.findAll(),
+let Tag = model.Tag
+let getTagInfo = async (ctx, next) => {
+    const RowDataPacket = await Tag.findAll(),
         Info = JSON.parse(JSON.stringify(RowDataPacket));
     ctx.body = {
         success: true,
@@ -13,5 +13,5 @@ let getAdminInfo = async (ctx, next) => {
 };
 
 module.exports = {
-    getAdminInfo
+    getTagInfo
 }

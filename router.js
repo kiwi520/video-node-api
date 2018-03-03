@@ -6,5 +6,11 @@ module.exports = (app) => {
     router.get('/user', app.controller.home.login)
     router.post('/user/register', app.controller.home.register)
     router.get('/admin', app.controller.admin.getAdminInfo)
+    router.get('/tags', app.controller.tag.getTagInfo)
+    router.get('/lesson/list', app.controller.lesson.getLessonInfo)
+    router.get('/lesson/:tid', app.controller.lesson.getTagLessonInfo)
+    router.get('/lessons/recommend', app.controller.lesson.getRecommendLessonInfo)
+    router.get('/lessons/hot', app.controller.lesson.getHotLessonInfo)
+    router.get('/video/:lid', app.controller.video.getVideoInfo)
     app.use(router.routes()).use(router.allowedMethods())
 }

@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 const Config  = require('../config/sequelize/db')
 console.log('init sequelize...');
-console.log(Config.database,Config.username, Config.password)
 
 module.exports = new Sequelize( Config.database,Config.username, Config.password, {
     host: Config.host,
