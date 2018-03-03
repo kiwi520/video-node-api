@@ -1,0 +1,23 @@
+{% extends "common/layout-home.html" %}
+{% block homeBanner %}
+<div class="banner_box">
+    <div class="banner_inner">
+        <h2 class="slogan">欢迎来到kiwi</h2>
+        <a href="/login" title="gogogo" class="btn" id="gogogo">Login</a>
+    </div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="hp-dialog">
+    <div class="hp-box">
+        <form action="/user/register" method="post">
+            <h1>请登录</h1>
+            <p class="error">{{content}}</p>
+            <input type="text" name="name" placeholder="请输入用户名：admin">
+            <input type="password" name="password" placeholder="请输入密码：123456">
+            <button>登录</button>
+        </form>
+    </div>
+</div>
+<div class="hp-overlay"></div>
+{% endblock %}
