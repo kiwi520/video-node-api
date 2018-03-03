@@ -34,33 +34,42 @@ let getTagLessonInfo = async (ctx, next) => {
 };
 
 let getRecommendLessonInfo = async (ctx,next) =>{
-    const RowDataPacket = await Lesson.findAll({
-            where: {
-                iscommend: 1
+    let rows = ctx.params
+    if(rows){
+        const RowDataPacket = await Lesson.findAll({
+                where: {
+                    iscommend: 1
+                },
+                limit:parseInt(rows.row)
+            }),
+            Info = JSON.parse(JSON.stringify(RowDataPacket));
+        ctx.body = {
+            code: 200,
+            data: {
+                adminInfo: Info
             }
-        }),
-        Info = JSON.parse(JSON.stringify(RowDataPacket));
-    ctx.body = {
-        code: 200,
-        data: {
-            adminInfo: Info
-        }
-    };
+        };
+    }
+
 }
 
 let getHotLessonInfo = async (ctx,next) =>{
-    const RowDataPacket = await Lesson.findAll({
-            where: {
-                ishot: 1
+    let rows = ctx.params
+    if(rows) {
+        const RowDataPacket = await Lesson.findAll({
+                where: {
+                    ishot: 1
+                },
+                limit:parseInt(rows.row)
+            }),
+            Info = JSON.parse(JSON.stringify(RowDataPacket));
+        ctx.body = {
+            code: 200,
+            data: {
+                adminInfo: Info
             }
-        }),
-        Info = JSON.parse(JSON.stringify(RowDataPacket));
-    ctx.body = {
-        code: 200,
-        data: {
-            adminInfo: Info
-        }
-    };
+        };
+    }
 }
 
 module.exports = {
