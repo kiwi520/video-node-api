@@ -14,6 +14,12 @@ let getVideoInfo = async (ctx,next) =>{
     };
 }
 
+let getVideoPath = async () => {
+    let path = ctx.params
+    ctx.body = path.path
+}
+
 module.exports = {
     getVideoInfo,
+    getVideoPath
 }
