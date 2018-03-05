@@ -23,9 +23,7 @@ let getTagLessonInfo = async (ctx, next) => {
             ).spread(function(results, metadata) {
             ctx.body = {
                 code: 200,
-                data: {
-                    adminInfo: results
-                }
+                data: results
             };
             // console.log(metadata)
             // Results 会是一个空数组和一个包含受影响行数的metadata 元数据对象
@@ -45,9 +43,7 @@ let getRecommendLessonInfo = async (ctx,next) =>{
             Info = JSON.parse(JSON.stringify(RowDataPacket));
         ctx.body = {
             code: 200,
-            data: {
-                adminInfo: Info
-            }
+            data: Info
         };
     }
 

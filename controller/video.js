@@ -10,9 +10,7 @@ let getVideoInfo = async (ctx,next) =>{
         Info = JSON.parse(JSON.stringify(RowDataPacket));
     ctx.body = {
         code: 200,
-        data: {
-            adminInfo: Info
-        }
+        data: Info
     };
 }
 

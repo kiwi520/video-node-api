@@ -6,9 +6,7 @@ let getTagInfo = async (ctx, next) => {
         Info = JSON.parse(JSON.stringify(RowDataPacket));
     ctx.body = {
         success: true,
-        data: {
-            adminInfo: Info
-        }
+        data: Info
     };
 };
 
