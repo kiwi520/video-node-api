@@ -1,6 +1,6 @@
 const lesson = require("../models/Lesson");
 const taglesson = require("../models/TagLesson");
-const sequelize = require("../utils/sequelize")
+const sequelize = require("../utils/sequelize");
 let Lesson = lesson.Lesson
 
 

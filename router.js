@@ -12,6 +12,6 @@ module.exports = (app) => {
     router.get('/recommend/:row', app.controller.lesson.getRecommendLessonInfo)
     router.get('/hot/:row', app.controller.lesson.getHotLessonInfo)
     router.get('/video/:lid', app.controller.video.getVideoInfo)
-    router.get('/v/:path', app.controller.video.getVideoPath)
+    router.get('/videos/:path', app.controller.video.getVideoPath)
     app.use(router.routes()).use(router.allowedMethods())
 }
