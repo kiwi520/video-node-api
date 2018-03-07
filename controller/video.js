@@ -14,9 +14,10 @@ let getVideoInfo = async (ctx,next) =>{
         data: Info
     };
 }
-
-let getVideoPath = async (ctx,next) => {
+// async
+let getVideoPath =  (ctx,next) => {
     const res = ctx.res;
+    const req = ctx.req;
     let paths = ctx.params
     let document = '/var/html/lv-video-demo/public/videos'
     let path =  document + '/' + paths.path +'.mp4';
@@ -25,7 +26,7 @@ let getVideoPath = async (ctx,next) => {
     let range = req.headers.range;
 
     if (range) {
-
+        console.log("if")
         let parts = range.replace(/bytes=/, "").split("-");
         let start = parseInt(parts[0], 10);
         let end = parts[1] ? parseInt(parts[1], 10) : start + 999999;
@@ -44,6 +45,7 @@ let getVideoPath = async (ctx,next) => {
         res.writeHead(206, head);
         file.pipe(res);
     } else {
+        console.log("else")
         let head = {
             'Content-Length': fileSize,
             'Content-Type': 'video/mp4',

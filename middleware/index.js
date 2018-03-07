@@ -56,6 +56,7 @@ module.exports = (app) => {
         // 设置所允许的HTTP请求方法
         // ctx.set("Access-Control-Allow-Methods", "OPTIONS, GET, PUT, POST, DELETE");
         ctx.set("Access-Control-Allow-Methods", "*");
+        ctx.set("Keep-Alive", "timeout=388");
 
         // 字段是必需的。它也是一个逗号分隔的字符串，表明服务器支持的所有头信息字段.
         // ctx.set("Access-Control-Allow-Headers", "x-requested-with, accept, origin, content-type");
