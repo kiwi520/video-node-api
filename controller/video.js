@@ -14,19 +14,15 @@ let getVideoInfo = async (ctx,next) =>{
         data: Info
     };
 }
-// async
-let getVideoPath =  (ctx,next) => {
-    const res = ctx.res;
-    const req = ctx.req;
+
+let getVideoPath = async (ctx,next) => {
     let paths = ctx.params
     let document = '/var/html/lv-video-demo/public/videos'
     let path =  document + '/' + paths.path +'.mp4';
     let stat = fs.statSync(path);
     let fileSize = stat.size;
-    let range = req.headers.range;
-
+    let range = ctx.headers.range;
     if (range) {
-        console.log("if")
         let parts = range.replace(/bytes=/, "").split("-");
         let start = parseInt(parts[0], 10);
         let end = parts[1] ? parseInt(parts[1], 10) : start + 999999;
@@ -36,22 +32,14 @@ let getVideoPath =  (ctx,next) => {
 
         let chunksize = (end - start) + 1;
         let file = fs.createReadStream(path, { start, end });
-        let head = {
-            'Content-Range': `bytes ${start}-${end}/${fileSize}`,
-            'Accept-Ranges': 'bytes',
-            'Content-Length': chunksize,
-            'Content-Type': 'video/mp4',
-        };
-        res.writeHead(206, head);
-        file.pipe(res);
+        ctx.status = 206
+        ctx.set('Content-Range',`bytes ${start}-${end}/${fileSize}`)
+        ctx.set('Accept-Ranges','bytes')
+        ctx.set('Content-Length',chunksize)
+        ctx.set('Content-Type','video/mp4')
+        ctx.body = file
     } else {
-        console.log("else")
-        let head = {
-            'Content-Length': fileSize,
-            'Content-Type': 'video/mp4',
-        };
-        res.writeHead(200, head);
-        fs.createReadStream(path).pipe(res);
+
     }
 
 }
