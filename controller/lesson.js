@@ -1,9 +1,14 @@
 const lesson = require("../models/Lesson");
-const taglesson = require("../models/TagLesson");
 const sequelize = require("../utils/sequelize");
 let Lesson = lesson.Lesson
 
 
+/**
+ * 获取所有视频系列
+ * @param ctx
+ * @param next
+ * @returns {Promise<void>}
+ */
 let getLessonInfo = async (ctx, next) => {
     const RowDataPacket = await Lesson.findAll(),
         Info = JSON.parse(JSON.stringify(RowDataPacket));
@@ -13,23 +18,31 @@ let getLessonInfo = async (ctx, next) => {
     };
 };
 
+/**
+ * 获取不同标签所属视频系列
+ * @param ctx
+ * @param next
+ * @returns {Promise<void>}
+ */
 let getTagLessonInfo = async (ctx, next) => {
     let tid = ctx.params
-    // ctx.body = tid
     if(tid){
-        // console.log(tid)
         await sequelize.query('select * from `lessons` inner join `tag_lessons` on `lessons`.`id` = `tag_lessons`.`lesson_id` where `tag_id` = '+ tid.tid
             ).spread(function(results, metadata) {
             ctx.body = {
                 code: 200,
                 data: JSON.parse(JSON.stringify(results))
             };
-            // console.log(metadata)
-            // Results 会是一个空数组和一个包含受影响行数的metadata 元数据对象
         })
     }
 };
 
+/**
+ * 获取推荐视频
+ * @param ctx
+ * @param next
+ * @returns {Promise<void>}
+ */
 let getRecommendLessonInfo = async (ctx,next) => {
     let rows = ctx.params
     if(rows){
@@ -37,6 +50,7 @@ let getRecommendLessonInfo = async (ctx,next) => {
                 where: {
                     iscommend: 1
                 },
+                order: [['created_at', 'DESC']],
                 limit:parseInt(rows.row)
             }),
             Info = JSON.parse(JSON.stringify(RowDataPacket));
@@ -48,6 +62,12 @@ let getRecommendLessonInfo = async (ctx,next) => {
 
 }
 
+/**
+ * 获取热门视频
+ * @param ctx
+ * @param next
+ * @returns {Promise<void>}
+ */
 let getHotLessonInfo = async (ctx,next) => {
     let rows = ctx.params
     if(rows) {
@@ -55,6 +75,7 @@ let getHotLessonInfo = async (ctx,next) => {
                 where: {
                     ishot: 1
                 },
+                order: [['created_at', 'DESC']],
                 limit:parseInt(rows.row)
             }),
             Info = JSON.parse(JSON.stringify(RowDataPacket));
@@ -65,10 +86,31 @@ let getHotLessonInfo = async (ctx,next) => {
     }
 }
 
-
+/**
+ * 首页轮播图数据
+ * @param ctx
+ * @param next
+ * @returns {Promise<void>}
+ */
+let getLessonIamgeInfo = async (ctx,next) => {
+    let rows = ctx.params
+    if(rows) {
+        const RowDataPacket = await Lesson.findAll({
+                attributes: ['id', 'preview'],
+                order: [['created_at', 'DESC']],
+                limit:parseInt(rows.row)
+            }),
+            Info = JSON.parse(JSON.stringify(RowDataPacket));
+        ctx.body = {
+            code: 200,
+            data: Info
+        };
+    }
+}
 module.exports = {
     getLessonInfo,
     getTagLessonInfo,
     getRecommendLessonInfo,
     getHotLessonInfo,
+    getLessonIamgeInfo
 }

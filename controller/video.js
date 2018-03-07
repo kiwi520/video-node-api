@@ -1,6 +1,14 @@
 const model = require("../models/Video");
-var fs = require('fs');//引入文件读取模块
+//引入文件读取模块
+var fs = require('fs');
 let video = model.Video
+
+/**
+ * 获取单个具体视频信息
+ * @param ctx
+ * @param next
+ * @returns {Promise<void>}
+ */
 let getVideoInfo = async (ctx,next) =>{
     let lid = ctx.params
     const RowDataPacket = await video.findAll({
@@ -15,6 +23,12 @@ let getVideoInfo = async (ctx,next) =>{
     };
 }
 
+/**
+ * 分段实现加载视频
+ * @param ctx
+ * @param next
+ * @returns {Promise<void>}
+ */
 let getVideoPath = async (ctx,next) => {
     let paths = ctx.params
     let document = '/var/html/lv-video-demo/public/videos'

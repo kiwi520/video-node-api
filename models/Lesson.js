@@ -1,7 +1,9 @@
 const Sequelize = require('sequelize');
 const sequelize = require("../utils/sequelize")
 
-
+/**
+ * 视频系列表定义模型
+ */
 const  Lesson = sequelize.define('lesson',{
     title: {
         type: Sequelize.STRING(60)
