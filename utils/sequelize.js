@@ -8,6 +8,6 @@ module.exports = new Sequelize( Config.database,Config.username, Config.password
     pool: {
         max: 5,
         min: 0,
-        idle: 10000
+        idle: 50000
     }
 });
