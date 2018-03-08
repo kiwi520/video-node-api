@@ -3,7 +3,7 @@ var config = {
     database: 'video',
     username: 'root',
     password: 'zhmgws2017',
-    host: '127.0.0.1',
+    host: 'localhost',
     port: 3306
 };
 
