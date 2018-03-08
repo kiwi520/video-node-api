@@ -31,7 +31,8 @@ let getVideoInfo = async (ctx,next) =>{
  */
 let getVideoPath = async (ctx,next) => {
     let paths = ctx.params
-    let document = '/var/html/lv-video-demo/public/videos'
+    // let document = '/var/html/lv-video-demo/public/videos'
+    let document = '/var/www/html/videoadmin/public/videos'
     let path =  document + '/' + paths.path +'.mp4';
     let stat = fs.statSync(path);
     let fileSize = stat.size;
